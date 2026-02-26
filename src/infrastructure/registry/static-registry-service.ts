@@ -52,4 +52,27 @@ export const StaticRegistryServiceLive = Layer.succeed(RegistryService, {
 
         return Effect.succeed(chain.bullaInvoice);
     },
+    getFrendLendAddress: (chainId: ChainId) => {
+        if (!isChainId(chainId)) {
+            return Effect.fail(
+                new UnsupportedChainError({
+                    chainId,
+                    message: `Chain ${chainId} is not supported`,
+                }),
+            );
+        }
+
+        const chain = REGISTRY[chainId];
+        if (!chain) {
+            return Effect.fail(
+                new ContractNotFoundError({
+                    chainId,
+                    contractName: 'BullaFrendLend',
+                    message: `No BullaFrendLend contract found for chain ${chainId}`,
+                }),
+            );
+        }
+
+        return Effect.succeed(chain.bullaFrendLend);
+    },
 });

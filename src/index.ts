@@ -4,6 +4,7 @@ import { Effect } from 'effect';
 import { createRequire } from 'node:module';
 import { payCommand } from './cli/commands/pay.js';
 import { invoiceCommand } from './cli/commands/invoice.js';
+import { frendlendCommand } from './cli/commands/frendlend.js';
 import { BuildModeLayers } from './infrastructure/layers.js';
 
 const require = createRequire(import.meta.url);
@@ -11,7 +12,7 @@ const { version } = require('../package.json') as { version: string };
 
 const bullaCommand = Command.make('bulla', {}).pipe(
     Command.withDescription('Bulla Protocol CLI — build and send Bulla related transactions'),
-    Command.withSubcommands([payCommand, invoiceCommand]),
+    Command.withSubcommands([payCommand, invoiceCommand, frendlendCommand]),
 );
 
 const cli = Command.run(bullaCommand, {
