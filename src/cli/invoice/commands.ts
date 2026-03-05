@@ -52,6 +52,7 @@ import {
     callbackSelectorOption,
 } from '../options/invoice-options.js';
 import { formatTransaction, formatResult, type OutputFormat } from '../formatters/index.js';
+import { makeSignerLayer } from '../../infrastructure/layers.js';
 import type { Hex } from '../../domain/types/eth.js';
 
 // ============================================================================
@@ -143,10 +144,7 @@ export const invoiceCreateExecuteCommand = Command.make(
             const resolvedRpcUrl = Option.getOrUndefined(rpcUrl);
             const signerLayer = makeSignerLayer(privateKey as Hex, resolvedRpcUrl);
 
-            const result = yield* sendCreateInvoice(params).pipe(
-                Effect.provide(signerLayer)
-                Effect.provide(BuildModeLayers),
-            );
+            const result = yield* sendCreateInvoice(params).pipe(Effect.provide(signerLayer));
 
             const output = formatResult(result, format as OutputFormat);
             yield* Console.log(output);
@@ -205,10 +203,7 @@ export const invoicePayExecuteCommand = Command.make(
             const resolvedRpcUrl = Option.getOrUndefined(rpcUrl);
             const signerLayer = makeSignerLayer(privateKey as Hex, resolvedRpcUrl);
 
-            const txResult = yield* sendPayInvoice(params, tokenAddress).pipe(
-                Effect.provide(signerLayer)
-                Effect.provide(BuildModeLayers),
-            );
+            const txResult = yield* sendPayInvoice(params, tokenAddress).pipe(Effect.provide(signerLayer));
 
             const output = formatResult(txResult, format as OutputFormat);
             yield* Console.log(output);
@@ -261,10 +256,7 @@ export const invoiceCancelExecuteCommand = Command.make(
             const resolvedRpcUrl = Option.getOrUndefined(rpcUrl);
             const signerLayer = makeSignerLayer(privateKey as Hex, resolvedRpcUrl);
 
-            const result = yield* sendCancelInvoice(params).pipe(
-                Effect.provide(signerLayer)
-                Effect.provide(BuildModeLayers),
-            );
+            const result = yield* sendCancelInvoice(params).pipe(Effect.provide(signerLayer));
 
             const output = formatResult(result, format as OutputFormat);
             yield* Console.log(output);
@@ -315,10 +307,7 @@ export const invoiceImpairExecuteCommand = Command.make(
             const resolvedRpcUrl = Option.getOrUndefined(rpcUrl);
             const signerLayer = makeSignerLayer(privateKey as Hex, resolvedRpcUrl);
 
-            const result = yield* sendImpairInvoice(params).pipe(
-                Effect.provide(signerLayer)
-                Effect.provide(BuildModeLayers),
-            );
+            const result = yield* sendImpairInvoice(params).pipe(Effect.provide(signerLayer));
 
             const output = formatResult(result, format as OutputFormat);
             yield* Console.log(output);
@@ -369,10 +358,7 @@ export const invoiceMarkPaidExecuteCommand = Command.make(
             const resolvedRpcUrl = Option.getOrUndefined(rpcUrl);
             const signerLayer = makeSignerLayer(privateKey as Hex, resolvedRpcUrl);
 
-            const result = yield* sendMarkInvoiceAsPaid(params).pipe(
-                Effect.provide(signerLayer)
-                Effect.provide(BuildModeLayers),
-            );
+            const result = yield* sendMarkInvoiceAsPaid(params).pipe(Effect.provide(signerLayer));
 
             const output = formatResult(result, format as OutputFormat);
             yield* Console.log(output);
@@ -425,10 +411,7 @@ export const invoiceUpdateBindingExecuteCommand = Command.make(
             const resolvedRpcUrl = Option.getOrUndefined(rpcUrl);
             const signerLayer = makeSignerLayer(privateKey as Hex, resolvedRpcUrl);
 
-            const result = yield* sendUpdateBinding(params).pipe(
-                Effect.provide(signerLayer)
-                Effect.provide(BuildModeLayers),
-            );
+            const result = yield* sendUpdateBinding(params).pipe(Effect.provide(signerLayer));
 
             const output = formatResult(result, format as OutputFormat);
             yield* Console.log(output);
@@ -483,10 +466,7 @@ export const invoiceSetCallbackExecuteCommand = Command.make(
             const resolvedRpcUrl = Option.getOrUndefined(rpcUrl);
             const signerLayer = makeSignerLayer(privateKey as Hex, resolvedRpcUrl);
 
-            const result = yield* sendSetPaidInvoiceCallback(params).pipe(
-                Effect.provide(signerLayer)
-                Effect.provide(BuildModeLayers),
-            );
+            const result = yield* sendSetPaidInvoiceCallback(params).pipe(Effect.provide(signerLayer));
 
             const output = formatResult(result, format as OutputFormat);
             yield* Console.log(output);
@@ -539,10 +519,7 @@ export const invoiceAcceptPoExecuteCommand = Command.make(
             const resolvedRpcUrl = Option.getOrUndefined(rpcUrl);
             const signerLayer = makeSignerLayer(privateKey as Hex, resolvedRpcUrl);
 
-            const result = yield* sendAcceptPurchaseOrder(params).pipe(
-                Effect.provide(signerLayer)
-                Effect.provide(BuildModeLayers),
-            );
+            const result = yield* sendAcceptPurchaseOrder(params).pipe(Effect.provide(signerLayer));
 
             const output = formatResult(result, format as OutputFormat);
             yield* Console.log(output);
@@ -593,10 +570,7 @@ export const invoiceDeliverPoExecuteCommand = Command.make(
             const resolvedRpcUrl = Option.getOrUndefined(rpcUrl);
             const signerLayer = makeSignerLayer(privateKey as Hex, resolvedRpcUrl);
 
-            const result = yield* sendDeliverPurchaseOrder(params).pipe(
-                Effect.provide(signerLayer)
-                Effect.provide(BuildModeLayers),
-            );
+            const result = yield* sendDeliverPurchaseOrder(params).pipe(Effect.provide(signerLayer));
 
             const output = formatResult(result, format as OutputFormat);
             yield* Console.log(output);
